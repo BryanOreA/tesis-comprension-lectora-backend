@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.db.database import Base, engine
-from app.api.routes import auth, texts, quizzes, students, sync, parents, reports
+from app.api.routes import auth, texts, quizzes, students, sync, parents, reports, admin
 
 # Crear tablas
 Base.metadata.create_all(bind=engine)
@@ -30,6 +30,7 @@ app.include_router(students.router, prefix=settings.API_V1_PREFIX)
 app.include_router(sync.router, prefix=settings.API_V1_PREFIX)
 app.include_router(parents.router, prefix=settings.API_V1_PREFIX)
 app.include_router(reports.router, prefix=settings.API_V1_PREFIX)
+app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

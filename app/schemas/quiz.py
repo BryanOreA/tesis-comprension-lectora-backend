@@ -3,7 +3,7 @@ from typing import List
 
 class AnswerItem(BaseModel):
     questionId: int
-    answer: int
+    answer: str 
     timeSpent: float = 0.0
 
 class QuizSubmission(BaseModel):

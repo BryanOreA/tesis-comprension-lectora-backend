@@ -17,10 +17,18 @@ def submit_quiz(text_id: int, submission: QuizSubmission, student_id: int = 1, d
 
     correct_count = 0
     total_time = 0.0
+    
     for answer in submission.answers:
         q = next((q for q in questions if q.id == answer.questionId), None)
-        if q and q.correct_answer == answer.answer:
-            correct_count += 1
+        if q:
+            # Obtener el texto de la opción correcta
+            options = [q.option_a, q.option_b, q.option_c, q.option_d]
+            correct_text = options[q.correct_answer]
+            
+            # Comparar el texto enviado por el frontend con el texto correcto (ignorando mayúsculas/espacios)
+            if correct_text.strip().lower() == answer.answer.strip().lower():
+                correct_count += 1
+                
         total_time += answer.timeSpent
 
     total = len(questions)
